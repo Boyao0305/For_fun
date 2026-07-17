@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIFE — Evolution Monitor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unica+One&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="monitor.css" />
+</head>
+<body>
+  <header id="topbar">
+    <h1>LIFE <span class="thin">/ evolution monitor</span></h1>
+    <div class="spacer"></div>
+    <label class="sel">
+      run
+      <select id="run-select"></select>
+    </label>
+    <div class="pill" id="live-pill"><span class="dot"></span><span id="live-text">connecting</span></div>
+  </header>
+
+  <main id="grid">
+    <section id="left">
+      <div class="panel">
+        <div class="panel-label">Fitness over generations</div>
+        <canvas id="chart" height="140"></canvas>
+        <div class="legend">
+          <span><i class="sw amber"></i>all-time best</span>
+          <span><i class="sw dim"></i>round best</span>
+        </div>
+      </div>
+      <div class="panel grow">
+        <div class="panel-label">Generations</div>
+        <div class="scroll" id="gen-list"></div>
+      </div>
+    </section>
+
+    <section id="mid" class="panel">
+      <div class="panel-label">Simulations — generation <span id="gen-label">–</span></div>
+      <div class="scroll">
+        <table id="sim-table">
+          <thead>
+            <tr><th>id</th><th>origin</th><th>class</th><th>lifespan</th>
+                <th>peak</th><th>final</th><th>extent</th><th>fitness</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="right" class="panel">
+      <div class="panel-label">Replay <span id="replay-label"></span></div>
+      <canvas id="player"></canvas>
+      <div id="player-stats">
+        <span>gen <b id="p-gen">0</b></span>
+        <span>pop <b id="p-pop">0</b></span>
+        <span id="p-class"></span>
+      </div>
+      <div id="player-controls">
+        <button id="p-play">Play</button>
+        <button id="p-restart">Restart</button>
+        <input type="range" id="p-speed" min="0" max="100" value="55" />
+        <span id="p-speed-val">30 g/s</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="life.js"></script>
+  <script src="monitor.js"></script>
+</body>
+</html>

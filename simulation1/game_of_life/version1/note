@@ -1,0 +1,39 @@
+The rule (Conway's Game of Life)
+
+  The entire "physics" is one rule applied to every cell of a grid, all at once, each tick:
+
+  - Every cell is either alive or dead.
+  - Count its 8 neighbors (up/down/left/right + diagonals).
+  - Alive cell: survives if it has 2 or 3 live neighbors; otherwise dies (loneliness < 2, overcrowding > 3).
+  - Dead cell: becomes alive if it has exactly 3 live neighbors (birth).
+
+  That's it — often written as B3/S23 (Birth on 3, Survive on 2 or 3). No memory, no randomness, no agent goals. Yet from this you get:
+
+  - Still lifes (blocks that never change)
+  - Oscillators (blinkers, pulsars — repeat with a period)
+  - Spaceships (gliders — patterns that travel across the grid)
+  - Guns (Gosper's glider gun — emits a new glider every 30 ticks, so population grows forever)
+
+  Does it grow / generate a map as it expands?
+
+  The mathematical Game of Life lives on an infinite grid — patterns like glider guns genuinely grow without bound. What a program does depends on implementation:
+
+  1. Fixed grid (simplest) — a W×H array, often with wrapping edges (torus). Gliders that hit the edge either die or wrap around. Nothing grows; you just watch a fixed
+  map.
+  2. Sparse / unbounded — store only the set of live cell coordinates instead of an array. The "map" then genuinely expands as patterns travel outward, and the renderer
+  keeps a viewport that either follows the bounding box of live cells (auto-zoom-out as it grows) or lets you pan/zoom.
+  3. HashLife — a famous algorithm that memoizes repeated sub-patterns; can simulate trillions of generations of huge growing patterns in seconds. Overkill to start, fun
+  later.
+
+  So yes — if we use the sparse representation, the world literally has no border, and the rendered map grows (or the camera zooms out) as the pattern spreads. That's the
+  version I'd recommend: it's barely more code than the array version and much more satisfying to watch a glider gun stream off into fresh territory.
+
+---
+
+Tools you can actually use
+
+  - Golly (free, open source) — the standard simulator: HashLife built in, a huge bundled pattern library (guns, puffers, rakes, breeders, the Sir Robin), Lua/Python
+  scripting. If you want a seed that grows forever today, it's in Golly's Patterns/ folder.
+  - apgsearch — join the Catagolue census with your idle CPU.
+  - LLS (Python + SAT solver) and qfind/ikpx2 — if you want to hunt for genuinely new objects.
+  - LifeWiki / conwaylife.com forums — where discoveries get catalogued and announced.

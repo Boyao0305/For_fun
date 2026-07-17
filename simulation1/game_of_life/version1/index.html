@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIFE — Unbounded Field</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unica+One&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <header>
+        <h1>LIFE</h1>
+        <div class="sub">Unbounded field &mdash; B3/S23</div>
+      </header>
+
+      <section class="group">
+        <div class="label">Transport</div>
+        <div class="row">
+          <button id="btn-run" class="primary">Start</button>
+          <button id="btn-step">Step</button>
+        </div>
+        <div class="row">
+          <button id="btn-clear" class="danger">Clear</button>
+        </div>
+        <div class="slider-row" style="margin-top:10px">
+          <input type="range" id="speed" min="0" max="100" value="45" />
+          <div class="value" id="speed-value">10 g/s</div>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="label">View</div>
+        <div class="row">
+          <button id="btn-zoom-out">&minus;</button>
+          <button id="btn-zoom-in">+</button>
+          <button id="btn-fit">Fit</button>
+        </div>
+        <div class="row">
+          <button id="btn-follow">Follow growth</button>
+          <button id="btn-extent" class="toggled">Extent box</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="label">Tool</div>
+        <div class="row">
+          <button id="tool-draw" class="toggled">Draw</button>
+          <button id="tool-erase">Erase</button>
+          <button id="tool-pan">Pan</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="label">Seed &mdash; initial condition</div>
+        <div class="row">
+          <select id="pattern-select"></select>
+        </div>
+        <div class="row">
+          <button id="btn-place">Place at center</button>
+        </div>
+        <div class="field-row" style="margin-top:10px">
+          <label>Soup</label>
+          <input type="number" id="soup-w" value="80" min="2" max="2000" title="width" />
+          <span style="color:var(--ink-faint)">&times;</span>
+          <input type="number" id="soup-h" value="60" min="2" max="2000" title="height" />
+        </div>
+        <div class="slider-row">
+          <input type="range" id="soup-density" min="1" max="99" value="30" />
+          <div class="value" id="soup-density-value">30%</div>
+        </div>
+        <div class="row" style="margin-top:6px">
+          <button id="btn-soup">Sow random soup</button>
+        </div>
+      </section>
+
+      <section class="group">
+        <div class="label">Archive</div>
+        <div class="row">
+          <input type="text" id="save-name" placeholder="run name&hellip;" />
+        </div>
+        <div class="row">
+          <button id="btn-save">Save</button>
+          <button id="btn-export">Export .json</button>
+          <button id="btn-import">Import</button>
+        </div>
+        <input type="file" id="import-file" accept=".json,application/json" style="display:none" />
+        <div id="save-list"></div>
+        <div class="empty-note" id="save-empty">no archived runs yet</div>
+      </section>
+    </aside>
+
+    <main id="viewport">
+      <canvas id="canvas"></canvas>
+      <div id="stats">
+        <div class="stat"><div class="k">Generation</div><div class="v" id="stat-gen">0</div></div>
+        <div class="stat"><div class="k">Population</div><div class="v" id="stat-pop">0</div></div>
+        <div class="stat"><div class="k">Extent</div><div class="v dim" id="stat-extent">&mdash;</div></div>
+        <div class="stat"><div class="k">Speed</div><div class="v dim" id="stat-gps">0 g/s</div></div>
+      </div>
+      <div id="hint">wheel: zoom &nbsp;&middot;&nbsp; drag: tool &nbsp;&middot;&nbsp; space: run/stop</div>
+      <div id="toast"></div>
+    </main>
+  </div>
+
+  <script src="life.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>
